@@ -1,5 +1,6 @@
 import express from "express";
-import ProductsRoutes from "./ src/models/Products.js";
+import ProductsRoutes from "./src/routers/Products.js"; 
+import branchesRoutes from "./src/routers/branches.js";
 
 ///----------------///----------------///----------------///----------------///----------------///----------------///----------------///
 
@@ -17,3 +18,7 @@ app.use(express.json());
 
 //Endopoint y usar los metodos de productos
 app.use("/api/products", ProductsRoutes);
+
+//Endopoint y usar los metodos de branches
+app.use("/api/branches", branchesRoutes);
+
