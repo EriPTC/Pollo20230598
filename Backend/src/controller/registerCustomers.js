@@ -9,7 +9,7 @@ import { config } from "../../config.js";
 const registerCustomers = {};
 
 registerCustomers.register = async (req, res) => {
-  let {
+  const {
     name,
     lastname,
     birthdate,
@@ -30,7 +30,7 @@ registerCustomers.register = async (req, res) => {
     const passwordHash = await bcryptjs.hash(password, 10);
 
     //guardar en base de datos
-    const newCustomer = new customerModel({
+    const newCustomer = new CustomersModel({
       name,
       lastname,
       birthdate,
@@ -53,14 +53,14 @@ registerCustomers.register = async (req, res) => {
       // paso 2: secret key
       config.JWT.secret,
       //paso 3: cuando expira
-      { ExpiresIn: "15m" },
+      { expiresIn: "15m" },
     );
 
-    res.cookie("verificationToken", tokenCode, { maxAge: 15 * 60 * 1000 }); //el numero que se cambia es el 15
+    res.cookie("verificationToken", tokenCode, { maxAge: 15*60*1000 }); //el numero que se cambia es el 15
 
     //enviar el cod por correo
     const transporte = nodemailer.createTransport({
-      services: "gmail",
+      service: "gmail",
       auth: {
         user: config.email.user_email,
         pass: config.email.user_password,
@@ -73,7 +73,7 @@ registerCustomers.register = async (req, res) => {
       to: email,
       subject: "Verificacion de cuenta",
       text:
-        "Para verificar tu cuenta, utiliza este codigo:" +
+        "Para verificar tu cuenta, utiliza este codigo: " +
         verificationCode +
         " expria en 15 minutos",
     };
@@ -82,7 +82,7 @@ registerCustomers.register = async (req, res) => {
     transporte.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log("error" + error);
-        res.status(400).json({ message: "error" });
+        return res.status(400).json({ message: "error" });
       }
       res
         .status(200)
@@ -101,10 +101,10 @@ registerCustomers.verifyCode = async (req, res) => {
     const { verificationCodeRequest } = req.body;
 
     //obtener el token de las cookies
-    const token = req.cookie.verificationCode;
+    const token = req.cookies.verificationToken;
 
     //ver que cod esa en el token
-    const decoded = jsonwebtoken.decoded.verify(token, config.JWT.secret);
+    const decoded = jsonwebtoken.verify(token, config.JWT.secret);
     const { email, verificationCode: storedCode } = decoded;
 
     //comparar verificationCodeRequest con el codifo del token
@@ -113,9 +113,9 @@ registerCustomers.verifyCode = async (req, res) => {
     }
 
     //codigo correcto
-    const Customer = await customerModel.findOne({ email });
+    const Customer = await CustomersModel.findOne({ email });
     Customer.isVerified = true;
-    await customers.save();
+    await Customer.save();
 
     res.clearCookie("verificationToken");
 

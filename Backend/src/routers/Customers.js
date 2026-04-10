@@ -8,9 +8,9 @@ import customers from "../controller/customers.js";
 const router = express.Router();
 
 router.route("/")
-.get(customers.getcustomer)
+.get(customers.getCustomer)
 
 router.route("/:id")
-.put(customers.Updatecustomer)
-.delete(customers.Deletecustomer)
+.put(customers.updateCustomer)
+.delete(customers.deleteCustomer)
 export default router;

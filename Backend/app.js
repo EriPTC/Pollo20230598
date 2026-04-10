@@ -6,6 +6,7 @@ import reviewsRoutes from "./src/routers/reviews.js";
 import ProviderRoutes from "./src/routers/providers.js";
 import CustomersRoutes from "./src/routers/Customers.js"
 import registerCustomersRoutes from "./src/routers/registerCustomers.js";
+import cookieParser from "cookie-parser";
 
 
 ///----------------///----------------///----------------///----------------///----------------///----------------///----------------///
@@ -15,6 +16,7 @@ import registerCustomersRoutes from "./src/routers/registerCustomers.js";
 const app = express();
 export default app; 
 
+app.use(cookieParser());
 
 //Acepte Json desde Postman
 app.use(express.json());

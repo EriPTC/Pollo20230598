@@ -10,7 +10,7 @@
     timeOut
 */
 
-import { Schema, model } from "moongose";
+import { Schema, model } from "mongoose";
 
 const customersSchema = new Schema(
   {

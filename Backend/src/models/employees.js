@@ -8,6 +8,7 @@ phone
 email
 password
 idBranch
+isVerified
 */
  
  
@@ -47,7 +48,12 @@ const employeeSchema = new Schema
     {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Branches"
+    },
+    isVerified:
+    { 
+        type: Boolean 
     }
+
  
 },
 {
