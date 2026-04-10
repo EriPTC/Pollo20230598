@@ -4,6 +4,7 @@ import branchesRoutes from "./src/routers/branches.js";
 import employesRoutes from "./src/routers/employees.js";
 import reviewsRoutes from "./src/routers/reviews.js";
 import ProviderRoutes from "./src/routers/providers.js";
+import CustomersRoutes from "./src/routers/Customers.js"
 import registerCustomersRoutes from "./src/routers/registerCustomers.js";
 
 
