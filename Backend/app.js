@@ -4,6 +4,8 @@ import branchesRoutes from "./src/routers/branches.js";
 import employesRoutes from "./src/routers/employees.js";
 import reviewsRoutes from "./src/routers/reviews.js";
 import ProviderRoutes from "./src/routers/providers.js";
+import registerCustomersRoutes from "./src/routers/registerCustomers.js";
+
 
 ///----------------///----------------///----------------///----------------///----------------///----------------///----------------///
 
@@ -30,5 +32,9 @@ app.use("/api/employes", employesRoutes);
 app.use("/api/reviews", reviewsRoutes);
 
 app.use("/api/providers", ProviderRoutes);
+
+app.use("/app/customers", CustomersRoutes)
+
+app.use("/app/registerCustomers", registerCustomersRoutes)
 
 
